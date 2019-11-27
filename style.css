@@ -1,0 +1,117 @@
+html {
+    font-family: 'Acme', sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 300px 600px 600px;
+    grid-template-rows: 200px  1000px;
+
+    margin: 0px;
+}
+header {
+    grid-column-start: 1;
+    grid-column-end: 4;
+
+    grid-row-start: 1;
+    grid-row-end: 2;
+
+    margin: 0px;
+
+    font-size: 100px;
+    text-align: center;
+
+    background-color: lime;
+    border: 4px black solid;
+    border-bottom: 0px black solid;
+}
+
+nav {
+    grid-column-start: 1;
+    grid-column-end: 2;
+
+    grid-row-start: 2;
+    grid-row-end: 3;
+
+    text-align: center;
+
+    margin: 0px;
+
+    background-color: lime;
+    border: 4px black solid;
+}
+
+aside {
+    grid-column-start: 3;
+    grid-column-end: 4;
+
+    grid-row-start: 2;
+    grid-row-end: 3;
+
+
+
+    background: lime;
+    border: 4px black solid;
+    border-left: 2px black solid;
+    
+}
+
+main {
+    grid-column-start: 2;
+    grid-column-end: 3;
+
+    grid-row-start: 2;
+    grid-row-end: 3;
+
+    text-align: center;     
+
+    margin: 0px;
+
+    background: lime;
+    border: 4px black solid;   
+    border-left: 1px black solid;
+    border-right: 2px black solid;
+}
+
+
+
+h1 {
+    font-size: 30px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 30px;
+    text-align: center;
+}
+
+h3 {
+    font-size: 30px;
+    text-align: center;
+}
+
+.namenslist {   
+    font-size: 15px;
+}
+
+ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+
+.form-field-name {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-field-text {
+    text-align: center;
+    margin-right: 20px;
+
+}
+
+.form-field-titel{
+    text-align: center;
+    margin-bottom: 20px;
+}
