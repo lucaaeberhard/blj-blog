@@ -18,22 +18,24 @@
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
     ]);
-
+    
+    
     $stmt = $pdo->query('SELECT * FROM `posts`');
     foreach($stmt->fetchAll() as $x) {
-    var_dump($x);
+    //var_dump($x);
     }
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
  
 
-    $created_by = $_POST['created_by'] ?? '';
-    $created_at = $_POST['created_at'] ?? '';
-    $post_title = $_POST['post_title'] ?? '';
-    $post_text = $_POST['post_text'] ?? '';
+    $created_by =  htmlentities($_POST['created_by'] ?? '');
+    $created_at = htmlentities($_POST['created_at'] ?? '');
+    $post_title = htmlentities($_POST['post_title'] ?? '');
+    $post_text = htmlentities($_POST['post_text'] ?? '');
+    $post_url = htmlentities($_POST['post_url'] ?? '');
 
-    $stmt = $pdo->prepare("INSERT INTO `posts` (created_by, created_at, post_title, post_text) VALUES (:by, now(), :on, :text)");
-    $stmt->execute([':by' => $created_by, ':on' => $post_title, ':text' => $post_text]);
+    $stmt = $pdo->prepare("INSERT INTO `posts` (created_by, created_at, post_title, post_text, post_url) VALUES (:by, now(), :on, :text, :url)");
+    $stmt->execute([':by' => $created_by, ':on' => $post_title, ':text' => $post_text, ':url' => $post_url]);
     }
 
 
@@ -70,6 +72,7 @@
                      <label for="name">Name</label>
                      <input type="text" id="created_by" name="created_by">
                 </div>
+
                 <div class="form-field-titel">
                     <label for="titel">Titel</label>
                     <input type="text" id="post_title" name="post_title">
@@ -79,9 +82,14 @@
                     <label for="message">Nachricht</label>
                     <textarea type="text" id="post_text" name="post_text"></textarea>
                 </div>
+
+                <div class="form-field-url">
+                    <label for="url">Bild</label>
+                    <textarea htmlentities type="text" id="post_url" name="post_url"></textarea>
+                </div>
                 
 
-                <input type="submit" value="Veröffentlichen">
+                <input class="senden-knopf" type="submit" value="Veröffentlichen">
 
             </form>
 
@@ -90,16 +98,30 @@
     </main>
     <aside class="aside">
             <h3>Beiträge</h3>
-
+            
             <?php
-            if($post_text != '' || $post_title != ''|| $created_by != '' ){ ?>
-            <ul class="ausgabe">
-            <li>$post_title</li>
-            <li>$post_text</li>
-            <li>$created_by</li>
-            <li>$created_at</li>
-            </ul>"
-            <?}?>
+            $sql = "SELECT created_at, created_by, post_title, post_text, post_url FROM posts";
+            $sql = "SELECT * FROM posts ORDER BY created_at desc";
+                foreach ($pdo->query($sql) as $row) {?>
+                    <div class="beitrag">
+                    <?php
+                    echo "Titel: ";
+                    echo $row['post_title']."<br />";
+                    echo "Text: ";
+                    echo $row['post_text']."<br />";
+                    echo "geschrieben von: ";
+                    echo $row['created_by']."<br />";
+                    echo "geschrieben am: ";
+                    echo $row['created_at']."<br />" ;
+                    echo "<img class='pictures' src='{$row['post_url']}'>";
+                    ?>
+
+                    </div>
+                    <?php
+                }
+            ?>
+            
+
 
     </aside>
 
